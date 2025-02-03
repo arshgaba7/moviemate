@@ -1,0 +1,21 @@
+Created initial project folder and git repo
+Wrote proposal for MovieMate app
+Researched possible design patterns
+Outlined app requirements and functionality
+Drafted initial architecture sketch
+Created SQLite schema for watchlist + prefs
+Implemented DB init + test connection
+Drafted Scenario and Physical views
+Connected Flask to SQLite
+Added /preferences and /watchlist endpoints
+Integrated OMDb API fetch using requests
+Implemented Factory pattern for Movie objects
+Added Logical, Development, and Process views
+Tested API flow with Postman
+Added error handling for missing OMDb titles
+Added Strategy pattern for /report formatting
+Added logging decorator for all route access
+Refactored endpoints and added inline comments
+Final testing: OMDb, reports, DB, all routes
+Filmed demo + reflection video, added README
+Created initial project folder and git repo
