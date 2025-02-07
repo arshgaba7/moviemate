@@ -20,3 +20,4 @@ Final testing: OMDb, reports, DB, all routes
 Filmed demo + reflection video, added README
 Created initial project folder and git repo
 Wrote proposal for MovieMate app
+Researched possible design patterns
