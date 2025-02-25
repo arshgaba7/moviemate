@@ -24,3 +24,4 @@ Researched possible design patterns
 Outlined app requirements and functionality
 Drafted initial architecture sketch
 Created SQLite schema for watchlist + prefs
+Implemented DB init + test connection
