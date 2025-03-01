@@ -26,3 +26,4 @@ Drafted initial architecture sketch
 Created SQLite schema for watchlist + prefs
 Implemented DB init + test connection
 Drafted Scenario and Physical views
+Connected Flask to SQLite
