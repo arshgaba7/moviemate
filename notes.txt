@@ -28,3 +28,4 @@ Implemented DB init + test connection
 Drafted Scenario and Physical views
 Connected Flask to SQLite
 Added /preferences and /watchlist endpoints
+Integrated OMDb API fetch using requests
