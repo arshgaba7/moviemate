@@ -29,3 +29,4 @@ Drafted Scenario and Physical views
 Connected Flask to SQLite
 Added /preferences and /watchlist endpoints
 Integrated OMDb API fetch using requests
+Implemented Factory pattern for Movie objects
