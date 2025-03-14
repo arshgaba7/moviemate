@@ -32,3 +32,4 @@ Integrated OMDb API fetch using requests
 Implemented Factory pattern for Movie objects
 Added Logical, Development, and Process views
 Tested API flow with Postman
+Added error handling for missing OMDb titles
