@@ -35,3 +35,4 @@ Tested API flow with Postman
 Added error handling for missing OMDb titles
 Added Strategy pattern for /report formatting
 Added logging decorator for all route access
+Refactored endpoints and added inline comments
