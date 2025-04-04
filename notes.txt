@@ -36,3 +36,4 @@ Added error handling for missing OMDb titles
 Added Strategy pattern for /report formatting
 Added logging decorator for all route access
 Refactored endpoints and added inline comments
+Final testing: OMDb, reports, DB, all routes
