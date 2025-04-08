@@ -1,9 +1,4 @@
-# Regenerating the full Flask app with corrected Strategy pattern implementation
 
-omdb_api_key = "f2cda4cbefab22bb2367fabd8e5dd3b8"  # You should replace this with your actual OMDb API key
-
-# Final upgraded code with corrected formatting
-updated_code = f"""
 from flask import Flask, request, jsonify
 import requests
 import sqlite3
@@ -15,7 +10,7 @@ app = Flask(__name__)
 def log_route(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print(f"[LOG] Accessed route: {{f.__name__}}")
+        print(f"[LOG] Accessed route: {f.__name__}")
         return f(*args, **kwargs)
     return decorated_function
 
@@ -28,12 +23,12 @@ class Movie:
         self.director = director
 
     def to_dict(self):
-        return {{
+        return {
             "title": self.title,
             "year": self.year,
             "genre": self.genre,
             "director": self.director
-        }}
+        }
 
 class MovieFactory:
     @staticmethod
@@ -52,35 +47,35 @@ class ReportStrategy:
 
 class JSONReport(ReportStrategy):
     def generate(self, user_movies):
-        return {{
+        return {
             "total_movies": len(user_movies),
             "movies": user_movies
-        }}
+        }
 
 class PlainTextReport(ReportStrategy):
     def generate(self, user_movies):
-        lines = [f"- {{movie}}" for movie in user_movies]
-        return "\\n".join(lines)
+        lines = [f"- {movie}" for movie in user_movies]
+        return "\n".join(lines)
 
 # === Database Initialization ===
 def init_db():
     conn = sqlite3.connect("moviemate.db")
     cursor = conn.cursor()
-    cursor.execute(\"""
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS watchlist (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user TEXT,
             movie_title TEXT
         )
-    \""")
-    cursor.execute(\"""
+    """)
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS preferences (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user TEXT,
             genre TEXT,
             actor TEXT
         )
-    \""")
+    """)
     conn.commit()
     conn.close()
 
@@ -89,10 +84,10 @@ def init_db():
 @app.route("/")
 @log_route
 def home():
-    return jsonify({{
+    return jsonify({
         "message": "Welcome to MovieMate API!",
         "endpoints": ["/preferences", "/watchlist", "/recommendations", "/omdb", "/report"]
-    }})
+    })
 
 @app.route("/preferences", methods=["POST"])
 @log_route
@@ -108,7 +103,7 @@ def save_preferences():
     conn.commit()
     conn.close()
 
-    return jsonify({{"message": "Preferences saved successfully"}})
+    return jsonify({"message": "Preferences saved successfully"})
 
 @app.route("/preferences", methods=["GET"])
 @log_route
@@ -119,7 +114,7 @@ def get_preferences():
     cursor.execute("SELECT genre, actor FROM preferences WHERE user = ? ORDER BY id DESC LIMIT 1", (user,))
     row = cursor.fetchone()
     conn.close()
-    return jsonify({{"preferences": row if row else "Not found"}})
+    return jsonify({"preferences": row if row else "Not found"})
 
 @app.route("/watchlist", methods=["POST"])
 @log_route
@@ -133,7 +128,7 @@ def add_to_watchlist():
     cursor.execute("INSERT INTO watchlist (user, movie_title) VALUES (?, ?)", (user, movie_title))
     conn.commit()
     conn.close()
-    return jsonify({{"message": "Movie added to watchlist"}})
+    return jsonify({"message": "Movie added to watchlist"})
 
 @app.route("/watchlist", methods=["GET"])
 @log_route
@@ -144,20 +139,26 @@ def get_watchlist():
     cursor.execute("SELECT movie_title FROM watchlist WHERE user = ?", (user,))
     rows = cursor.fetchall()
     conn.close()
-    return jsonify({{"watchlist": [row[0] for row in rows]}})
+    return jsonify({"watchlist": [row[0] for row in rows]})
 
 @app.route("/omdb", methods=["GET"])
 @log_route
 def get_movie_from_omdb():
-    title = request.args.get("title")
-    url = f"http://www.omdbapi.com/?apikey={omdb_api_key}&t={{title}}"
+    imdb_id = request.args.get("id")
+    if not imdb_id:
+        return jsonify({"error": "Missing IMDb ID"}), 400
+
+    omdb_api_key = "a40849fe"
+    url = f"http://www.omdbapi.com/?apikey={omdb_api_key}&i={imdb_id}"
     response = requests.get(url)
     data = response.json()
+
     if data.get("Response") == "True":
         movie = MovieFactory.create_movie(data)
         return jsonify(movie.to_dict())
     else:
-        return jsonify({{"error": "Movie not found"}}), 404
+        return jsonify({"error": f"OMDb error: {data.get('Error', 'Unknown error')}"}), 404
+
 
 @app.route("/report", methods=["GET"])
 @log_route
@@ -179,11 +180,3 @@ def report():
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=5001)
-"""
-
-# Save final updated file
-output_path = "/mnt/data/moviemate_flask_api_m4.py"
-with open(output_path, "w") as f:
-    f.write(updated_code)
-
-output_path
